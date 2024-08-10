@@ -1,0 +1,12 @@
+.git
+data
+models
+docs
+plan
+*.md
+backend/.venv
+backend/.pytest_cache
+backend/.mypy_cache
+backend/.ruff_cache
+backend/**/__pycache__
+backend/.env

@@ -1,0 +1,141 @@
+{
+  "video": "..\\data\\parking_lot.mov",
+  "frame_index": 0,
+  "model_version": "C:/Users/GIGABYTE/Desktop/Study in Passau/Projects/Parking_Occupancy_Detection/models/yolov8n-obb.pt",
+  "yolo_conf_threshold": 0.25,
+  "yolo_imgsz": 1024,
+  "occupancy_coverage_threshold": 0.5,
+  "spots_evaluated": 20,
+  "aggregate_accuracy": 1.0,
+  "confusion_matrix": {
+    "tp": 15,
+    "fp": 0,
+    "tn": 5,
+    "fn": 0
+  },
+  "precision_occupied": 1.0,
+  "recall_occupied": 1.0,
+  "f1_occupied": 1.0,
+  "per_spot": [
+    {
+      "label": "HR1",
+      "actual": true,
+      "predicted": true,
+      "correct": true
+    },
+    {
+      "label": "HR2",
+      "actual": true,
+      "predicted": true,
+      "correct": true
+    },
+    {
+      "label": "HR3",
+      "actual": false,
+      "predicted": false,
+      "correct": true
+    },
+    {
+      "label": "HR4",
+      "actual": true,
+      "predicted": true,
+      "correct": true
+    },
+    {
+      "label": "HR5",
+      "actual": true,
+      "predicted": true,
+      "correct": true
+    },
+    {
+      "label": "HR6",
+      "actual": false,
+      "predicted": false,
+      "correct": true
+    },
+    {
+      "label": "HR7",
+      "actual": true,
+      "predicted": true,
+      "correct": true
+    },
+    {
+      "label": "HR8",
+      "actual": true,
+      "predicted": true,
+      "correct": true
+    },
+    {
+      "label": "HR9",
+      "actual": true,
+      "predicted": true,
+      "correct": true
+    },
+    {
+      "label": "HR10",
+      "actual": false,
+      "predicted": false,
+      "correct": true
+    },
+    {
+      "label": "AR1",
+      "actual": true,
+      "predicted": true,
+      "correct": true
+    },
+    {
+      "label": "AR2",
+      "actual": true,
+      "predicted": true,
+      "correct": true
+    },
+    {
+      "label": "AR3",
+      "actual": true,
+      "predicted": true,
+      "correct": true
+    },
+    {
+      "label": "AR4",
+      "actual": true,
+      "predicted": true,
+      "correct": true
+    },
+    {
+      "label": "AR5",
+      "actual": true,
+      "predicted": true,
+      "correct": true
+    },
+    {
+      "label": "AR6",
+      "actual": true,
+      "predicted": true,
+      "correct": true
+    },
+    {
+      "label": "AR7",
+      "actual": true,
+      "predicted": true,
+      "correct": true
+    },
+    {
+      "label": "AR8",
+      "actual": false,
+      "predicted": false,
+      "correct": true
+    },
+    {
+      "label": "AR9",
+      "actual": false,
+      "predicted": false,
+      "correct": true
+    },
+    {
+      "label": "AR10",
+      "actual": true,
+      "predicted": true,
+      "correct": true
+    }
+  ]
+}

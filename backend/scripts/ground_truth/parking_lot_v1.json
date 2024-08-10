@@ -1,0 +1,24 @@
+{
+  "video": "data/parking_lot.mov",
+  "frame_index": 0,
+  "note": "Hand-labeled by visually inspecting pixel-coordinate-gridded crops of this exact frame. See docs/evaluation.md for methodology, including why this is a single-timestamp (not multi-timestamp) evaluation.",
+  "spots": [
+    {"label": "A", "polygon": [[205, 295], [268, 295], [268, 400], [205, 400]], "is_occupied": true},
+    {"label": "B", "polygon": [[295, 295], [350, 295], [350, 400], [295, 400]], "is_occupied": true},
+    {"label": "C", "polygon": [[352, 295], [405, 295], [405, 400], [352, 400]], "is_occupied": true},
+    {"label": "D", "polygon": [[405, 295], [448, 295], [448, 400], [405, 400]], "is_occupied": true},
+    {"label": "E", "polygon": [[448, 295], [488, 295], [488, 400], [448, 400]], "is_occupied": false},
+    {"label": "F", "polygon": [[490, 295], [545, 295], [545, 400], [490, 400]], "is_occupied": true},
+    {"label": "G", "polygon": [[545, 295], [590, 295], [590, 400], [545, 400]], "is_occupied": false},
+    {"label": "H", "polygon": [[650, 295], [715, 295], [715, 382], [650, 382]], "is_occupied": true},
+    {"label": "I", "polygon": [[715, 300], [788, 300], [788, 385], [715, 385]], "is_occupied": false},
+    {"label": "J", "polygon": [[790, 325], [850, 325], [850, 392], [790, 392]], "is_occupied": true},
+    {"label": "K", "polygon": [[1013, 330], [1078, 330], [1078, 392], [1013, 392]], "is_occupied": true},
+    {"label": "L", "polygon": [[905, 155], [940, 155], [940, 235], [905, 235]], "is_occupied": true},
+    {"label": "M", "polygon": [[945, 150], [982, 150], [982, 235], [945, 235]], "is_occupied": true},
+    {"label": "N", "polygon": [[1030, 150], [1080, 150], [1080, 235], [1030, 235]], "is_occupied": true},
+    {"label": "O", "polygon": [[1100, 155], [1145, 155], [1145, 235], [1100, 235]], "is_occupied": true},
+    {"label": "P", "polygon": [[1175, 150], [1225, 150], [1225, 235], [1175, 235]], "is_occupied": true},
+    {"label": "Q", "polygon": [[1255, 150], [1300, 150], [1300, 235], [1255, 235]], "is_occupied": true}
+  ]
+}

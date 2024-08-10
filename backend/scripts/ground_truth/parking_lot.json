@@ -1,0 +1,27 @@
+{
+  "video": "data/parking_lot.mov",
+  "frame_index": 0,
+  "note": "v2 ground truth. 20 spots across two rows legible from a straight-down view: the hedge row (HR1-HR10, y~150-232) and the near-left row (AR1-AR10, y~315-400). Polygons drawn against frame 0 to bound the actual painted stalls, aligned to visible stall dividers and vehicle footprints, then cross-checked against the aerial detector's boxes for gross misalignment. The v1 17-spot set (kept as parking_lot_v1.json) had loosely-drawn polygons spanning multiple stalls and empty asphalt, which capped measurable accuracy regardless of the detector. Screenshot-based hand annotation is still ~10px-noisy on this 1080p footage; a fully rigorous number needs scripts/annotate_spots.py run interactively on the source video. See docs/evaluation.md.",
+  "spots": [
+    {"label": "HR1", "polygon": [[908, 148], [956, 148], [956, 235], [908, 235]], "is_occupied": true},
+    {"label": "HR2", "polygon": [[956, 148], [1004, 148], [1004, 235], [956, 235]], "is_occupied": true},
+    {"label": "HR3", "polygon": [[1004, 148], [1048, 148], [1048, 235], [1004, 235]], "is_occupied": false},
+    {"label": "HR4", "polygon": [[1048, 148], [1094, 148], [1094, 235], [1048, 235]], "is_occupied": true},
+    {"label": "HR5", "polygon": [[1094, 148], [1140, 148], [1140, 235], [1094, 235]], "is_occupied": true},
+    {"label": "HR6", "polygon": [[1140, 148], [1185, 148], [1185, 235], [1140, 235]], "is_occupied": false},
+    {"label": "HR7", "polygon": [[1185, 148], [1232, 148], [1232, 235], [1185, 235]], "is_occupied": true},
+    {"label": "HR8", "polygon": [[1232, 148], [1278, 148], [1278, 235], [1232, 235]], "is_occupied": true},
+    {"label": "HR9", "polygon": [[1278, 148], [1322, 148], [1322, 235], [1278, 235]], "is_occupied": true},
+    {"label": "HR10", "polygon": [[1322, 148], [1366, 148], [1366, 235], [1322, 235]], "is_occupied": false},
+    {"label": "AR1", "polygon": [[222, 315], [278, 315], [278, 400], [222, 400]], "is_occupied": true},
+    {"label": "AR2", "polygon": [[278, 315], [335, 315], [335, 400], [278, 400]], "is_occupied": true},
+    {"label": "AR3", "polygon": [[338, 315], [392, 315], [392, 400], [338, 400]], "is_occupied": true},
+    {"label": "AR4", "polygon": [[392, 315], [446, 315], [446, 400], [392, 400]], "is_occupied": true},
+    {"label": "AR5", "polygon": [[450, 315], [508, 315], [508, 400], [450, 400]], "is_occupied": true},
+    {"label": "AR6", "polygon": [[533, 315], [592, 315], [592, 400], [533, 400]], "is_occupied": true},
+    {"label": "AR7", "polygon": [[604, 315], [658, 315], [658, 400], [604, 400]], "is_occupied": true},
+    {"label": "AR8", "polygon": [[660, 315], [712, 315], [712, 400], [660, 400]], "is_occupied": false},
+    {"label": "AR9", "polygon": [[712, 315], [765, 315], [765, 400], [712, 400]], "is_occupied": false},
+    {"label": "AR10", "polygon": [[770, 315], [828, 315], [828, 400], [770, 400]], "is_occupied": true}
+  ]
+}

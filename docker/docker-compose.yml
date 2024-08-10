@@ -1,0 +1,86 @@
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: parking
+      POSTGRES_PASSWORD: parking
+      POSTGRES_DB: parking
+    ports:
+      # Host port 5434, not 5432: this dev machine already has a native
+      # Postgres Windows service bound to 5432, which silently intercepts
+      # connections meant for this container. 5433 is also taken, by the
+      # sibling Freelance_Project's own Postgres container.
+      - "5434:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U parking -d parking"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # One-off: applies Alembic migrations, then exits. A fresh `db_data`
+  # volume has no schema at all — nothing else here creates one, so `api`
+  # and `worker` both wait on this completing successfully first.
+  migrate:
+    build:
+      context: ..
+      dockerfile: docker/api.Dockerfile
+    env_file:
+      - ../backend/.env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://parking:parking@db:5432/parking
+      YOLO_WEIGHTS_PATH: /models/yolov8n-obb.pt
+    command: ["uv", "run", "--no-sync", "alembic", "upgrade", "head"]
+    depends_on:
+      db:
+        condition: service_healthy
+
+  api:
+    build:
+      context: ..
+      dockerfile: docker/api.Dockerfile
+    restart: unless-stopped
+    env_file:
+      - ../backend/.env
+    environment:
+      # In-network address, not the host-mapped port .env uses for local
+      # `uv run` — Compose's `environment:` overrides `env_file:` for the
+      # same key.
+      DATABASE_URL: postgresql+asyncpg://parking:parking@db:5432/parking
+      # The API never loads a model (it reads occupancy_state and never
+      # triggers inference) but Settings still
+      # requires the field — the real file only has to exist for `worker`.
+      YOLO_WEIGHTS_PATH: /models/yolov8n-obb.pt
+    ports:
+      # Host port 8001, not 8000: the sibling Freelance_Project's own API
+      # container already occupies 8000 on this dev machine.
+      - "8001:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+
+  worker:
+    build:
+      context: ..
+      dockerfile: docker/worker.Dockerfile
+    restart: unless-stopped
+    env_file:
+      - ../backend/.env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://parking:parking@db:5432/parking
+      YOLO_WEIGHTS_PATH: /models/yolov8n-obb.pt
+    volumes:
+      - ../models:/models:ro
+      - ../data:/data:ro
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+
+volumes:
+  db_data:

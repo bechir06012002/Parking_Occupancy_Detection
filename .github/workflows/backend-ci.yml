@@ -1,0 +1,63 @@
+name: backend-ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    services:
+      # tests/api/ needs a real Postgres — it builds a disposable schema per
+      # test (SQLite can't run parking_spots' JSONB column or
+      # app/db/writer.py's ON CONFLICT). Everything else here still runs
+      # with no live model, no network.
+      db:
+        image: postgres:16
+        env:
+          POSTGRES_USER: ci
+          POSTGRES_PASSWORD: ci
+          POSTGRES_DB: ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U ci -d ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql+asyncpg://ci:ci@localhost:5432/ci
+      # Dummy — no real model is ever loaded in CI.
+      YOLO_WEIGHTS_PATH: unused.pt
+      YOLO_CONF_THRESHOLD: "0.25"
+      YOLO_IMGSZ: "1024"
+      OCCUPANCY_COVERAGE_THRESHOLD: "0.5"
+      OCCUPANCY_IOU_THRESHOLD: "0.3"
+      SMOOTHING_WINDOW: "5"
+      SAMPLE_FPS: "1.0"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "latest"
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: ruff check
+        run: uv run ruff check .
+
+      - name: ruff format --check
+        run: uv run ruff format --check .
+
+      - name: mypy --strict
+        run: uv run mypy app worker --strict
+
+      - name: pytest
+        run: uv run pytest

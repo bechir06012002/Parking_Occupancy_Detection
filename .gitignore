@@ -1,0 +1,28 @@
+# Secrets / credentials — never commit, not even temporarily
+.env
+*.pem
+*.key
+
+# Model weights (fetched/pinned by version, not versioned in git)
+models/*
+!models/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Video/data (sample footage and eval ground truth can be large/local-only)
+data/*
+!data/.gitkeep
+
+# Generated demo-visualization layouts (regenerate with infer_spot_grid.py)
+backend/scripts/spot_layouts/*
+
+# OS/editor
+.DS_Store
+Thumbs.db
