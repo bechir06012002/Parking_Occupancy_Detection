@@ -184,8 +184,3 @@ uv run mypy app worker --strict
 
 https://github.com/user-attachments/assets/3c40264c-987b-4335-95d5-7d8e1ad5bf03
 
-<div align="center">
-
-**🅿️ Real-time parking occupancy monitoring powered by computer vision.**
-
-</div>
