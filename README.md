@@ -117,7 +117,6 @@ uv run ruff format --check .
 uv run mypy app worker --strict
 ```
 
-## Demo Video
+## Demo 
 
 https://github.com/user-attachments/assets/3c40264c-987b-4335-95d5-7d8e1ad5bf03
----
