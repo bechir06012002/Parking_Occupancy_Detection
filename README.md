@@ -157,7 +157,7 @@ Tested on a **20-spot ground-truth dataset**:
 
 | Metric                 |           Result |
 | ---------------------- | ---------------: |
-| 🎯 Occupancy Accuracy  | **100% (20/20)** |
+| 🎯 Occupancy Accuracy  | **90%+ (266/280)** |
 | ⚡ p95 CPU Latency      |        **~0.6s** |
 | 🅿️ Supported Capacity |   **200+ spots** |
 
