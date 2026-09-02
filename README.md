@@ -1,12 +1,53 @@
-# Smart Parking Occupancy Detector
+<div align="center">
 
-A real-time parking occupancy system using **YOLOv8**, **ByteTrack**, **FastAPI**, **PostgreSQL**, and **Docker**.
+# 🅿️ Smart Parking Occupancy Detector
 
-It detects vehicles from video/RTSP streams, tracks them across frames, determines whether parking spots are occupied, and stores the results for API access.
+**Real-time parking occupancy detection and monitoring.**
 
-## Architecture
+Detect vehicles from video or RTSP streams, track them across frames, determine parking-space occupancy, and expose the results through a REST API.
 
-```mermaid
+[![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python\&logoColor=white)](#)
+[![YOLOv8](https://img.shields.io/badge/YOLOv8-Object%20Detection-00FFFF?logo=yolo\&logoColor=white)](#)
+[![FastAPI](https://img.shields.io/badge/FastAPI-REST%20API-009688?logo=fastapi\&logoColor=white)](#)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-4169E1?logo=postgresql\&logoColor=white)](#)
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker\&logoColor=white)](#)
+
+</div>
+
+---
+
+## 📖 Table of Contents
+
+* [✨ Features](#-features)
+* [🧠 How It Works](#-how-it-works)
+* [🛠️ Tech Stack](#️-tech-stack)
+* [📁 Project Structure](#-project-structure)
+* [⚙️ Getting Started](#️-getting-started)
+* [🔌 API](#-api)
+* [📊 Evaluation](#-evaluation)
+* [🧪 Testing](#-testing)
+* [🎬 Demo](#-demo)
+
+---
+
+## ✨ Features
+
+|                             |                                                         |
+| --------------------------- | ------------------------------------------------------- |
+| 🚗 **Vehicle Detection**    | Detects vehicles using YOLOv8-OBB                       |
+| 🎯 **Object Tracking**      | ByteTrack tracks vehicles across frames                 |
+| 🅿️ **Occupancy Detection** | Matches tracked vehicles against parking-spot polygons  |
+| 📈 **Temporal Smoothing**   | Stabilizes occupancy results and reduces flickering     |
+| ⚡ **Low Latency**           | ~0.6s p95 CPU latency for one camera                    |
+| 📡 **RTSP Support**         | Processes live camera streams                           |
+| 🗄️ **Persistent Storage**  | Stores occupancy data in PostgreSQL                     |
+| 🔌 **REST API**             | Provides current occupancy, history, and system metrics |
+
+---
+
+## 🧠 How It Works
+
+```mermaid id="j9w3zv"
 flowchart LR
     V[VideoCapture / RTSP] --> FG[FrameGrabber<br/>sampled ~1 fps]
     FG --> SCH[Batch Scheduler<br/>one frame per camera]
@@ -20,43 +61,54 @@ flowchart LR
     C --> API
 ```
 
-The **worker** handles detection, tracking, and persistence, while the **API** serves occupancy data independently.
+The **worker** handles frame capture, detection, tracking, occupancy calculation, and persistence.
 
-## Tech Stack
+The **FastAPI service** runs independently and serves the latest occupancy data through the API.
 
-* **YOLOv8 + PyTorch** — vehicle detection
-* **ByteTrack** — multi-frame tracking
-* **OpenCV** — video processing
-* **FastAPI** — REST API
-* **PostgreSQL** — occupancy storage
-* **Docker Compose** — deployment
-* **Pytest / Ruff / MyPy** — testing and code quality
+---
 
-## Project Structure
+## 🛠️ Tech Stack
 
-```text
+| Layer            | Technology          |
+| ---------------- | ------------------- |
+| Detection        | YOLOv8-OBB, PyTorch |
+| Tracking         | ByteTrack           |
+| Video Processing | OpenCV              |
+| Backend          | FastAPI             |
+| Database         | PostgreSQL          |
+| Deployment       | Docker Compose      |
+| Testing          | Pytest              |
+| Code Quality     | Ruff, MyPy          |
+
+---
+
+## 📁 Project Structure
+
+```text id="b7z4gk"
 backend/
-  app/
-    api/          API routes
-    core/         Configuration
-    db/           Database models & migrations
-    domain/       Core data models
-    services/     Capture, detection, tracking & occupancy
-  worker/         Inference pipeline
-  scripts/        Utilities and evaluation
-  tests/          Automated tests
+├── app/
+│   ├── api/          API routes
+│   ├── core/         Configuration
+│   ├── db/           Database models & migrations
+│   ├── domain/       Core data models
+│   └── services/     Capture, detection, tracking & occupancy
+├── worker/           Inference pipeline
+├── scripts/          Utilities and evaluation
+└── tests/            Automated tests
 
-docker/           Docker configuration
-docs/             Architecture & evaluation
-models/           YOLO weights
-data/             Videos & parking spot data
+docker/               Docker configuration
+docs/                 Architecture & evaluation
+models/               YOLO weights
+data/                 Videos & parking spot data
 ```
 
-## Quickstart
+---
+
+## ⚙️ Getting Started
 
 ### Docker
 
-```bash
+```bash id="4t3qyr"
 cp backend/.env.example backend/.env
 
 docker compose -f docker/docker-compose.yml up -d
@@ -66,7 +118,7 @@ docker compose -f docker/docker-compose.yml logs -f worker
 
 ### Local Development
 
-```bash
+```bash id="b5r1qk"
 cd backend
 uv sync
 
@@ -84,7 +136,9 @@ API documentation:
 http://localhost:8000/docs
 ```
 
-## API
+---
+
+## 🔌 API
 
 | Method | Endpoint                           | Description       |
 | ------ | ---------------------------------- | ----------------- |
@@ -95,18 +149,25 @@ http://localhost:8000/docs
 | `GET`  | `/api/occupancy/{spot_id}/history` | Occupancy history |
 | `GET`  | `/api/metrics`                     | System metrics    |
 
-## Evaluation
+---
 
-Tested on a 20-spot ground-truth dataset:
+## 📊 Evaluation
 
-* **100% occupancy accuracy (20/20)**
-* **~0.6s p95 latency** on CPU for one camera
-* Supports **200+ parking spots**
-* GPU recommended for multiple cameras
+Tested on a **20-spot ground-truth dataset**:
+
+| Metric                 |           Result |
+| ---------------------- | ---------------: |
+| 🎯 Occupancy Accuracy  | **100% (20/20)** |
+| ⚡ p95 CPU Latency      |        **~0.6s** |
+| 🅿️ Supported Capacity |   **200+ spots** |
+
+> 💡 GPU acceleration is recommended when processing multiple cameras.
 
 More details: [`docs/evaluation.md`](docs/evaluation.md)
 
-## Testing
+---
+
+## 🧪 Testing
 
 ```bash
 cd backend
@@ -117,6 +178,14 @@ uv run ruff format --check .
 uv run mypy app worker --strict
 ```
 
-## Demo 
+---
+
+## 🎬 Demo
 
 https://github.com/user-attachments/assets/3c40264c-987b-4335-95d5-7d8e1ad5bf03
+
+<div align="center">
+
+**🅿️ Real-time parking occupancy monitoring powered by computer vision.**
+
+</div>
